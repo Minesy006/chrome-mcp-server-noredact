@@ -1,0 +1,13 @@
+# local / OS
+.DS_Store
+*.tmp
+*.log
+
+# do not commit the local private signing key if present
+manifest.key
+*.pem
+*.p12
+
+# editor
+.vscode/
+.idea/

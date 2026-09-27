@@ -1,0 +1,106 @@
+{
+  "manifest_version": 3,
+  "name": "__MSG_extensionName__",
+  "description": "__MSG_extensionDescription__",
+  "version": "1.0.4",
+  "icons": {
+    "16": "icon/16.png",
+    "32": "icon/32.png",
+    "48": "icon/48.png",
+    "96": "icon/96.png",
+    "128": "icon/128.png"
+  },
+  "default_locale": "zh_CN",
+  "permissions": [
+    "nativeMessaging",
+    "tabs",
+    "activeTab",
+    "scripting",
+    "contextMenus",
+    "downloads",
+    "webRequest",
+    "webNavigation",
+    "debugger",
+    "history",
+    "bookmarks",
+    "offscreen",
+    "storage",
+    "declarativeNetRequest",
+    "alarms",
+    "sidePanel",
+    "cookies"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "options_ui": {
+    "page": "options.html"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Default Popup Title"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "commands": {
+    "toggle_web_editor": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+O",
+        "mac": "Command+Shift+O"
+      },
+      "description": "Toggle Web Editor mode"
+    },
+    "toggle_quick_panel": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+U",
+        "mac": "Command+Shift+U"
+      },
+      "description": "Toggle Quick Panel AI Chat"
+    }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "/models/*",
+        "/workers/*",
+        "/inject-scripts/*"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
+  "cross_origin_embedder_policy": {
+    "value": "require-corp"
+  },
+  "cross_origin_opener_policy": {
+    "value": "same-origin"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:;"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.google.com/*"
+      ],
+      "js": [
+        "content-scripts/content.js"
+      ]
+    },
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "run_at": "document_idle",
+      "js": [
+        "content-scripts/element-picker.js",
+        "content-scripts/quick-panel.js"
+      ]
+    }
+  ]
+}
